@@ -49,3 +49,22 @@ Selector labels
 app.kubernetes.io/name: {{ include "acceleration-a.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+
+{{/*
+Test if the microservice has been enabled
+*/}}
+{{- define "acceleration-a.isEnabled" }}
+ {{- if eq ( .Values.enabled | toString ) "true"  -}}
+  true
+ {{- else -}}
+  false
+ {{- end -}}
+{{- end }}
+
+{{/*
+Template for service url
+*/}}
+{{- define "acceleration-a.svcUrl" }}
+{{- printf "http://%s:%s/a" (include "acceleration-a.fullname" .) ( .Values.service.port | default 80 | toString) -}}
+{{- end }}

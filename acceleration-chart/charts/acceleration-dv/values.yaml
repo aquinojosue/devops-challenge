@@ -1,5 +1,5 @@
 replicaCount: 1
-
+enabled: true
 image: aquinojosue/join-challenge:acc-dv
 
 containerPort: 3001

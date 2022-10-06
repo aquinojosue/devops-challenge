@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "acceleration-a.fullname" . }}
+  name: {{ include "acceleration-dv.fullname" . }}
   labels:
-    {{- include "acceleration-a.labels" . | nindent 4 }}
+    {{- include "acceleration-dv.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      {{- include "acceleration-a.selectorLabels" . | nindent 6 }}
+      {{- include "acceleration-dv.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "acceleration-a.selectorLabels" . | nindent 8 }}
+        {{- include "acceleration-dv.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

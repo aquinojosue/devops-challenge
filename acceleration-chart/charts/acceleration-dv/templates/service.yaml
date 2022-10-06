@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "acceleration-a.fullname" . }}
+  name: {{ include "acceleration-dv.fullname" . }}
   labels:
-    {{- include "acceleration-a.labels" . | nindent 4 }}
+    {{- include "acceleration-dv.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "acceleration-a.selectorLabels" . | nindent 4 }}
+    {{- include "acceleration-dv.selectorLabels" . | nindent 4 }}

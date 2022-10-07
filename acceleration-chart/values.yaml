@@ -2,15 +2,16 @@ replicaCount: 1
 main:
   image: aquinojosue/join-challenge:acc-calc
   pullPolicy: Always
-
+containerPort: 3000
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
 # Values for our subcharts
-# acceleration-a:
-#   enabled: true
-# acceleration-dv:
-#   enabled: false
+acceleration-a:
+  enabled: true
+acceleration-dv:
+  enabled: true
 
 podAnnotations: {}
 

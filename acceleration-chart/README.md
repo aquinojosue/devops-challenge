@@ -1,16 +1,16 @@
 # JOIN DevOps Challenge Helm Chart
-By Josue Aquino, 2022.
+By Josue Aquino 🇸🇻, 2022.
 ## Installing the Chart
 To install the helm chart:
 ```console
 helm install <name of the release> ./acceleration-chart
 ```
-## Uninstalling the Chart
+## Uninstalling the Chart 
 To uninstall the deployment:
 ```console
 helm uninstall <name of the release>
 ```
-## Configuration
+## Configuration ⌨️
 Read through the [values.yaml](./values.yaml) file. It has the majority of values with their defaults. Some values are inherited from the initial helm chart template.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
@@ -26,7 +26,7 @@ Alternatively, a YAML file that specifies the values for the above parameters ca
 ```console
 helm install <name of the release> ./acceleration-chart -f values.yaml
 ```
-## Values
+## Values 🗂
 These are the main values added or modified on the helm chart. 
 
 As mentioned before, the chart has inherited values from the initial helm chart template, but these have been noted as the values that can be used for changing the behavior of the helm chart and the containers.
@@ -46,5 +46,5 @@ As mentioned before, the chart has inherited values from the initial helm chart 
 | service.port                  | int    | 80                                    | Port that the calc container service will use.                                                                                                     |
 | ingress                       | object | See values.yaml                       | Enable and configure ingress settings for the calc chart to use. Default configuration to be used with `join-challenge.local.jaquino.cloud` as host. |
 
-## Questions?
-Don't hesitate to ask! I'll try to be available as much time as I can.
+## Questions? 🤔
+Don't hesitate to ask! I'll try to be available as much time as I can 😄.

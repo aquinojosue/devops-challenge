@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "acceleration-chart.fullname" . }}
+  labels:
+    {{- include "acceleration-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "acceleration-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "acceleration-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.main.image | default "aquinojosue/join-challenge:acc-calc" }}"
+          imagePullPolicy: {{ .Values.main.pullPolicy }}
+          env:
+            - name: "WEB_PORT"
+              value: {{ .Values.containerPort | default "3000" | quote }}
+            {{- if eq (include "acceleration-a.isEnabled"  ( index .Subcharts "acceleration-a" )) "true" }}
+            - name: "A_URL"
+              value: {{ include "acceleration-a.svcUrl"  ( index .Subcharts "acceleration-a" )  | quote}}
+            {{- end }}
+            {{- if eq (include "acceleration-dv.isEnabled"  ( index .Subcharts "acceleration-dv" )) "true" }}
+            - name: "DV_URL"
+              value: {{ include "acceleration-dv.svcUrl"  ( index .Subcharts "acceleration-dv" )  | quote}}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort | default "3000" }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

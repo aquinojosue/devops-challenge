@@ -1,0 +1,17 @@
+{{- if eq (include "acceleration-dv.isEnabled" .) "true" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "acceleration-dv.fullname" . }}
+  labels:
+    {{- include "acceleration-dv.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port | default "80" }}
+      targetPort: {{ .Values.containerPort | default "3001" }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "acceleration-dv.selectorLabels" . | nindent 4 }}
+{{- end -}}

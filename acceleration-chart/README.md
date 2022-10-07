@@ -45,3 +45,6 @@ As mentioned before, the chart has inherited values from the initial helm chart 
 | service.type                  | String | "LoadBalancer"                        | Service type that the calc container will use.                                                                                                     |
 | service.port                  | int    | 80                                    | Port that the calc container service will use.                                                                                                     |
 | ingress                       | object | See values.yaml                       | Enable and configure ingress settings for the calc chart to use. Default configuration to be used with `join-challenge.local.jaquino.cloud` as host. |
+
+## Questions?
+Don't hesitate to ask! I'll try to be available as much time as I can.
